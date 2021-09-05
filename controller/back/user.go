@@ -37,3 +37,8 @@ func (u User) Add(c *gin.Context) {
 		"data":user,
 	})
 }
+
+func (u User) Delete(c *gin.Context) {
+	//id := c.GetString("id")
+
+}
