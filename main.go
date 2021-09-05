@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"github.com/gin-gonic/gin"
+	"saas/router"
+)
 
 func main() {
-	fmt.Println("hello")
+	r := gin.Default()
+
+	router.Back(r)
+
+	r.Run()
+
+
 }
