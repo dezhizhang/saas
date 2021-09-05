@@ -2,6 +2,7 @@ package back
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"saas/driver"
 	"saas/models"
@@ -19,5 +20,20 @@ func (u User) List(c *gin.Context) {
 		"msg":"ok",
 		"success":true,
 		"data":users,
+	})
+}
+
+func (u User) Add(c *gin.Context) {
+	var user models.User
+	err := c.BindJSON(&user)
+	if err != nil {
+		log.Fatal(err)
+	}
+	driver.DB.Create(&user)
+	c.JSON(http.StatusOK,gin.H{
+		"code":200,
+		"msg":"增加数据成功",
+		"success":true,
+		"data":user,
 	})
 }
