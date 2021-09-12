@@ -23,7 +23,8 @@ func init() {
 	user := config.Section("mysql").Key("user").String()
 	//password := config.Section("mysql").Key("password").String()
 	database := config.Section("mysql").Key("database").String()
-	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",user,"sdf@df%%$65#fdsbXT",ip,port,database)
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
+		user,"sdf@df%%$65#fdsbXT",ip,port,database)
 	//dsn := "root:sdf@df%%$65#fdsbXT@tcp(127.0.0.1:3306)/saas?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {

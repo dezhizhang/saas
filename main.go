@@ -1,30 +1,22 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"gopkg.in/ini.v1"
-	"log"
-	"os"
+	"html/template"
 	"saas/router"
+	"saas/utils"
 )
 
 func main() {
 	r := gin.Default()
+	r.SetFuncMap(template.FuncMap{
+		"UnixToTime":utils.UnixToTime,
+	})
+	r.LoadHTMLGlob("templates/**/**/*")
 	r.Static("/static", "./static")
 	router.Front(r)
 	router.Back(r)
 
-
-	config,err := ini.Load("./config/config.ini")
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
-	}
-
-	fmt.Println(config.Section("mysql").Key("password").String())
-
 	r.Run()
-
 
 }
