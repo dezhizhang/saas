@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"saas/driver"
 	"saas/models"
 )
 
@@ -24,6 +25,7 @@ func (n Nav) List(c *gin.Context)  {
 	//driver.DB.Where("id=? or id=?",2,3).Find(&navList)
 	//driver.DB.Select("id,title").Find(&navList)
 	//driver.DB.Order("id desc").Find(&navList)
+	driver.DB.Limit(10).Find(&navList)
 	c.JSON(http.StatusOK,gin.H{
 		"code":200,
 		"msg":"ok",
