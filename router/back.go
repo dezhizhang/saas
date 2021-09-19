@@ -6,9 +6,11 @@ import (
 )
 
 func Back(r *gin.Engine) {
-	v1 := r.Group("/api/v1/back")
+	v1 := r.Group("/admin")
+	v1.GET("/login",back.Login{}.Home)
 	v1.GET("/user",back.User{}.List)
 	v1.POST("/user/add",back.User{}.Add)
+
 
 	v1.GET("/nav",back.Nav{}.List)
 }
