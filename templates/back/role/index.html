@@ -6,22 +6,26 @@
             <thead>
             <tr class="th">
                 <th>角色名称</th>
-                <th>角色名称</th>
-                <th>角色状态</th>
-             
+                <th>状态</th>
+                <th>描述</th>
+                <th>创建时间</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
 
-
+            {{ range $key,$value := .roles}}
             <tr>
-
+                <td>{{$value.Title}}</td>
+                <td>{{$value.Status}}</td>
+                <td>{{$value.Description}}</td>
+                <td>{{$value.AddTime}}</td>
                 <td class="text-center">
-                    <a href="">修改</a>
+                    <a href="/admin/role/edit?id={{$value.Id}}">修改</a>
                     <a class="delete" href="">删除</a>
                 </td>
             </tr>
+            {{end}}
             </tbody>
         </table>
     </div>

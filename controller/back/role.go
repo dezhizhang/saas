@@ -14,7 +14,11 @@ type RoleController struct {
 }
 
 func (r RoleController) Home(c *gin.Context)  {
-	c.HTML(http.StatusOK,"back/role/index.html",nil)
+	var roles []models.Role
+	driver.DB.Find(&roles)
+	c.HTML(http.StatusOK,"back/role/index.html",gin.H{
+		"roles":roles,
+	})
 }
 
 func (r RoleController) Add(c *gin.Context)  {
@@ -24,7 +28,6 @@ func (r RoleController) Add(c *gin.Context)  {
 func (r RoleController) DoAdd(c *gin.Context) {
 	title := strings.Trim(c.PostForm("title"),"")
 	description := strings.Trim(c.PostForm("description"),"")
-
 	if title == "" {
 		r.Error(c,"标题不能为空","/admin/role/add")
 	}
@@ -39,12 +42,22 @@ func (r RoleController) DoAdd(c *gin.Context) {
 		r.Error(c,"增加角色失败,请重试","/admin/role/add")
 		return
 	}
-	r.Success(c,"增加角色成功","admin/role")
+	r.Success(c,"增加角色成功","/admin/role")
 
 }
 
 func (r RoleController) Edit(c *gin.Context) {
-
+	id := c.Query("id")
+	n,err := utils.Int(id)
+	if err != nil {
+		r.Error(c,"参数错误","/admin/role")
+		return
+	}
+	var role models.Role
+	driver.DB.Where("id=?",n).Find(&role)
+	c.HTML(http.StatusOK,"back/role/edit.html",gin.H{
+		"role": role,
+	})
 }
 
 func (r RoleController) Delete(c *gin.Context) {

@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"io"
+	"strconv"
 	"time"
 )
 
@@ -24,4 +25,18 @@ func Md5(str string) string {
 
 func GetUnix() int64 {
 	return time.Now().Unix()
+}
+
+// 字符串转int
+
+func Int(str string) (int,error) {
+	n,err := strconv.Atoi(str)
+	return n,err
+}
+
+// int转换成string
+
+func String(n int) string  {
+	str := strconv.Itoa(n)
+	return str
 }
