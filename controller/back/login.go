@@ -26,7 +26,7 @@ func (l Login) DoLogin(c *gin.Context) {
 
 	if len(manager) > 0 {
 		session := sessions.Default(c)
-		session.Set("userInfo",&manager)
+		session.Set("manager",&manager)
 		session.Save()
 
 	}
