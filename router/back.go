@@ -10,5 +10,6 @@ func Back(r *gin.Engine) {
 	{
 		v1.GET("/login",back.Login{}.Home)
 		v1.GET("/manager",back.Manager{}.Home)
+
 	}
 }
