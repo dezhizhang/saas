@@ -5,7 +5,10 @@ import (
 	"image/color"
 )
 
-func Captcha()(id string,) {
+
+var store = base64Captcha.DefaultMemStore
+
+func Captcha()(id string, b64s string,err error) {
 	var driver base64Captcha.Driver
 	driverString := base64Captcha.DriverString{
 		Height: 40,
@@ -19,6 +22,11 @@ func Captcha()(id string,) {
 			G: 102,
 			B: 214,
 			A: 125,
-		}
+		},
+		Fonts: []string{"wqy-microhei.ttc"},
 	}
+	driver = driverString.ConvertFonts()
+	c := base64Captcha.NewCaptcha(driver,store)
+	id,b64s,err = c.Generate()
+	return id,b64s,err
 }
