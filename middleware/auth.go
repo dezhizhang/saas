@@ -19,7 +19,7 @@ func Auth(c *gin.Context) {
 	if ok {
 		var managerArr []models.Manager
 		json.Unmarshal([]byte(userInfo),&managerArr)
-		if !(len(managerArr) > 0 && managerArr[o].Username != "") {
+		if !(len(managerArr) > 0 && managerArr[0].Username != "") {
 			if pathName != "/admin/login" && pathName != "/admin/doLogin" {
 				c.Redirect(302,"/admin/login")
 			}
