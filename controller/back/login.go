@@ -1,6 +1,7 @@
 package back
 
 import (
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"saas/driver"
@@ -24,6 +25,9 @@ func (l Login) DoLogin(c *gin.Context) {
 	driver.DB.Where("username=? AND password?=",username,	utils.Md5(password)).Find(&manager)
 
 	if len(manager) > 0 {
+		session := sessions.Default(c)
+		session.Set("userInfo",&manager)
+		session.Save()
 
 	}
 

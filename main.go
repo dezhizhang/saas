@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"saas/router"
@@ -14,6 +16,10 @@ func main() {
 	})
 	r.LoadHTMLGlob("templates/**/**/*")
 	r.Static("/static", "./static")
+
+	store := cookie.NewStore([]byte("secret111"))
+
+	r.Use(sessions.Sessions("sessions",store))
 	router.Front(r)
 	router.Back(r)
 
