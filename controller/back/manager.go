@@ -58,3 +58,20 @@ func (m ManagerController) DoAdd(c *gin.Context) {
 	}
 	m.Success(c,"增加管理员成功","/admin/manager")
 }
+
+func (m ManagerController) Delete(c *gin.Context) {
+	pathName := "admin/manager"
+	id,err := utils.Int(c.Query("id"))
+	if err != nil{
+		m.Error(c,"参数错误",pathName)
+		return
+	}
+	var manager models.Manager
+	err = driver.DB.Where("id=?",id).Delete(&manager).Error
+	if err != nil{
+		m.Error(c,"删除失败",pathName)
+		return
+	}
+	m.Success(c,"删除成功",pathName)
+
+}
