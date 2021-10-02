@@ -79,6 +79,42 @@ func (m ManagerController) Edit(c *gin.Context) {
 	})
 }
 
+func (m ManagerController) DoEdit(c *gin.Context) {
+
+	id,err := utils.Int(c.PostForm("id"))
+	pathName := "/admin/manager/edit?id="+ c.PostForm("id")
+	if err != nil {
+		m.Error(c,"参数错误",pathName)
+		return
+	}
+
+	roleId,err := utils.Int(c.Param("role_id"))
+	if err != nil {
+		m.Error(c,"参数错误",pathName)
+		return
+	}
+	mobile := c.PostForm("mobile")
+	email := c.PostForm("email")
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+
+	manager := models.Manager{
+		Id: id,
+		RoleId: roleId,
+		Mobile: mobile,
+		Email: email,
+		Username: username,
+		Password: password,
+	}
+
+	err = driver.DB.Save(&manager).Error
+	if err != nil {
+		m.Error(c,"修改管理失败",pathName)
+		return
+	}
+	m.Success(c,"修改管理成功",pathName)
+}
+
 func (m ManagerController) Delete(c *gin.Context) {
 	pathName := "/admin/manager"
 	id,err := utils.Int(c.Query("id"))

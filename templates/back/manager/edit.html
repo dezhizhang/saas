@@ -6,7 +6,8 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive input-form">
-            <form role="form" action="/admin/manager/doAdd" method="post">
+            <form role="form" action="/admin/manager/doEdit" method="post">
+                <input type="hidden" name="id" value="{{.manager.Id}}">
                 <div class="form-group">
                     <label for="name">名称</label>
                     <input type="text" value="{{.manager.Username}}" class="form-control" id="name" name="username" placeholder="请输入名称">
