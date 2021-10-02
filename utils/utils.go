@@ -34,9 +34,26 @@ func Int(str string) (int,error) {
 	return n,err
 }
 
+//获取当前的日期
+
+func GetDate() string {
+	template := "2006-01-02 15:04:05"
+	return time.Now().Format(template)
+}
+
+//获取年月日
+
+func GetDay() string {
+	template := "20060102"
+	return time.Now().Format(template)
+}
+
+
 // int转换成string
 
 func String(n int) string  {
 	str := strconv.Itoa(n)
 	return str
 }
+
+

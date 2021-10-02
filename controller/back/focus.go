@@ -17,3 +17,7 @@ func (f FocusController) Home(c *gin.Context) {
 func (f FocusController) Add(c *gin.Context) {
 	c.HTML(http.StatusOK,"back/focus/add.html",nil)
 }
+
+func (f FocusController) DoAdd(c *gin.Context) {
+
+}
