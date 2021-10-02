@@ -92,5 +92,18 @@ func (r RoleController) DoEdit(c *gin.Context) {
 }
 
 func (r RoleController) Delete(c *gin.Context) {
-
+	pathName := "/admin/role"
+	strId := c.Query("id")
+	id,err:= utils.Int(strId)
+	if err != nil {
+		r.Error(c,"参数错误",pathName)
+		return
+	}
+	var role models.Role
+	err = driver.DB.Where("id=?",id).Delete(&role).Error
+	if err != nil {
+		r.Error(c,"删除失败",pathName)
+		return
+	}
+	r.Success(c,"删除成功",pathName)
 }
