@@ -37,7 +37,8 @@ func UploadFile(c *gin.Context,fileName string) (string,error) {
 	name := strconv.FormatInt(GetUnix(),10) + extName
 	dst := path.Join(dir,name)
 
-	c.SaveUploadedFile(file,dst)
+	err = c.SaveUploadedFile(file,dst)
+
 	return dst,nil
 }
 
