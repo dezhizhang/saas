@@ -9,7 +9,6 @@ func Back(r *gin.Engine) {
 	v1 := r.Group("/admin")
 	{
 		v1.GET("/login",back.Login{}.Home)
-		v1.GET("/manager",back.Manager{}.Home)
 
 		// 权限
 		v1.GET("/role",back.RoleController{}.Home)
@@ -18,6 +17,11 @@ func Back(r *gin.Engine) {
 		v1.GET("/role/edit",back.RoleController{}.Edit)
 		v1.POST("/role/doEdit",back.RoleController{}.DoEdit)
 		v1.GET("/role/delete",back.RoleController{}.Delete)
+
+		// 管理员
+		v1.GET("/manager",back.ManagerController{}.Home)
+		v1.GET("/manager/add",back.ManagerController{}.Add)
+		v1.POST("/manager/doAdd",back.ManagerController{}.DoAdd)
 
 	}
 }

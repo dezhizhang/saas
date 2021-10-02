@@ -3,12 +3,58 @@ package back
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"saas/driver"
+	"saas/models"
+	"saas/utils"
+	"strings"
 )
 
-type Manager struct {
-
+type ManagerController struct {
+	BaseController
 }
 
-func (m Manager) Home(c *gin.Context) {
-	c.HTML(http.StatusOK,"back/manager/index.html",gin.H{})
+func (m ManagerController) Home(c *gin.Context) {
+	var managers []models.Manager
+	driver.DB.Find(&managers)
+	c.HTML(http.StatusOK,"back/manager/index.html",gin.H{
+		"managers":managers,
+	})
+}
+
+func (m ManagerController) Add(c *gin.Context)  {
+	var roles []models.Role
+	driver.DB.Find(&roles)
+	c.HTML(http.StatusOK,"back/manager/add.html",gin.H{
+		"roles":roles,
+	})
+}
+
+func (m ManagerController) DoAdd(c *gin.Context) {
+	pathName := "/admin/manager/add"
+	roleId,err :=utils.Int(c.PostForm("role_id"))
+	if err != nil {
+		m.Error(c,"传入参数有误",pathName)
+		return
+	}
+	email := strings.Trim(c.PostForm("email"),"")
+	mobile:= strings.Trim(c.PostForm("mobile"),"")
+	username := strings.Trim(c.PostForm("username"),"")
+	password := strings.Trim(c.PostForm("password"),"")
+
+	manager := models.Manager{
+		Username: username,
+		Password: utils.Md5(password),
+		Email: email,
+		Mobile: mobile,
+		RoleId: roleId,
+		Status: 1,
+		AddTime: int(utils.GetUnix()),
+	}
+
+	err = driver.DB.Create(&manager).Error
+	if err != nil {
+		m.Error(c,"增加管理员失败",pathName)
+		return
+	}
+	m.Success(c,"增加管理员成功","/admin/manager")
 }
