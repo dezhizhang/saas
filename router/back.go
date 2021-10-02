@@ -16,6 +16,7 @@ func Back(r *gin.Engine) {
 		v1.GET("/role/add",back.RoleController{}.Add)
 		v1.POST("/role/doAdd",back.RoleController{}.DoAdd)
 		v1.GET("/role/edit",back.RoleController{}.Edit)
+		v1.POST("/role/doEdit",back.RoleController{}.DoEdit)
 		v1.GET("/role/delete",back.RoleController{}.Delete)
 
 	}

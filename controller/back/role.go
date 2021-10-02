@@ -60,6 +60,37 @@ func (r RoleController) Edit(c *gin.Context) {
 	})
 }
 
+func (r RoleController) DoEdit(c *gin.Context) {
+	strId := strings.Trim(c.PostForm("id"),"")
+	id,err := utils.Int(strId)
+	if err != nil {
+		r.Error(c,"参数错误","/admin/role/edit")
+	}
+	title := strings.Trim(c.PostForm("title"),"")
+	description := strings.Trim(c.PostForm("description"),"")
+
+	if title == "" {
+		r.Error(c,"标题不能为空","/admin/role/edit")
+		return
+	}
+
+	var role models.Role
+	driver.DB.Where("id=?",id).Find(&role)
+
+	// 修改数据
+	role.Title = title
+	role.Description = description
+
+	// 保存数据
+	err = driver.DB.Save(&role).Error
+	if err != nil {
+		r.Error(c,"修改数据失败","/admin/role/edit?id="+utils.String(id))
+		return
+	}
+	r.Success(c,"修改数据成功","/admin/role")
+
+}
+
 func (r RoleController) Delete(c *gin.Context) {
 
 }
