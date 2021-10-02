@@ -6,6 +6,7 @@ import (
 	"saas/driver"
 	"saas/models"
 	"saas/utils"
+	"strings"
 )
 
 type FocusController struct {
@@ -88,4 +89,40 @@ func (f FocusController) Edit(c *gin.Context) {
 	c.HTML(http.StatusOK,"back/focus/edit.html",gin.H{
 		"focus":focus,
 	})
+}
+
+func (f FocusController) DoEdit(c *gin.Context)  {
+
+	id,err := utils.Int(c.PostForm("id"))
+	pathName := "/admin/focus/edit?id"+ c.PostForm("id")
+	if err != nil {
+		f.Error(c,"传入的参数有误",pathName)
+		return
+	}
+
+	var focus models.Focus
+
+	name := strings.Trim(c.PostForm("name"),"")
+	link :=strings.Trim(c.PostForm("link"),"")
+	focusType,err :=utils.Int(c.PostForm("focus_type"))
+	if err != nil {
+		f.Error(c,"类型错误",pathName)
+		return
+	}
+	focus.Id = id
+	focus.Name = name
+	focus.Link = link
+	focus.FocusType = focusType
+	img,_ := utils.UploadFile(c,"img")
+	if img != "" {
+		focus.Img = img
+	}
+
+	err = driver.DB.Where("id=?",id).Save(&focus).Error
+	if err != nil {
+		f.Error(c,"修改数据失败",pathName)
+		return
+	}
+	f.Success(c,"修改数据成功",pathName)
+
 }
