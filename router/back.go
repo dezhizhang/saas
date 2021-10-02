@@ -26,5 +26,9 @@ func Back(r *gin.Engine) {
 		v1.POST("/manager/doEdit",back.ManagerController{}.DoEdit)
 		v1.GET("/manager/delete",back.ManagerController{}.Delete)
 
+		// 轮播图
+		v1.GET("/focus",back.FocusController{}.Home)
+		v1.GET("/focus/add",back.FocusController{}.Add)
+
 	}
 }
