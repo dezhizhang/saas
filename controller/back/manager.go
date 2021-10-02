@@ -17,7 +17,6 @@ type ManagerController struct {
 func (m ManagerController) Home(c *gin.Context) {
 	var managers []models.Manager
 	driver.DB.Preload("Role").Find(&managers)
-	fmt.Printf("%#v",managers)
 	c.HTML(http.StatusOK,"back/manager/index.html",gin.H{
 		"managers":managers,
 	})
@@ -80,7 +79,7 @@ func (m ManagerController) Edit(c *gin.Context) {
 }
 
 func (m ManagerController) DoEdit(c *gin.Context) {
-
+	fmt.Println(c.PostForm("id"))
 	id,err := utils.Int(c.PostForm("id"))
 	pathName := "/admin/manager/edit?id="+ c.PostForm("id")
 	if err != nil {
@@ -88,11 +87,7 @@ func (m ManagerController) DoEdit(c *gin.Context) {
 		return
 	}
 
-	roleId,err := utils.Int(c.Param("role_id"))
-	if err != nil {
-		m.Error(c,"参数错误",pathName)
-		return
-	}
+	roleId,_ := utils.Int(c.Param("role_id"))
 	mobile := c.PostForm("mobile")
 	email := c.PostForm("email")
 	username := c.PostForm("username")
@@ -112,7 +107,7 @@ func (m ManagerController) DoEdit(c *gin.Context) {
 		m.Error(c,"修改管理失败",pathName)
 		return
 	}
-	m.Success(c,"修改管理成功",pathName)
+	m.Success(c,"修改管理成功","/admin/manager")
 }
 
 func (m ManagerController) Delete(c *gin.Context) {
