@@ -59,8 +59,23 @@ func (m ManagerController) DoAdd(c *gin.Context) {
 	m.Success(c,"增加管理员成功","/admin/manager")
 }
 
+
+func (m ManagerController) Edit(c *gin.Context) {
+	pathName := "/admin/manager/edit"
+	id ,err := utils.Int(c.Query("id"))
+	if err != nil{
+		m.Error(c,"传入参数有误",pathName)
+		return
+	}
+	var manager models.Manager
+	driver.DB.Where("id?=",id).Find(&manager)
+	c.HTML(http.StatusOK,"back/manager/index.html",gin.H{
+		"manager":manager,
+	})
+}
+
 func (m ManagerController) Delete(c *gin.Context) {
-	pathName := "admin/manager"
+	pathName := "/admin/manager"
 	id,err := utils.Int(c.Query("id"))
 	if err != nil{
 		m.Error(c,"参数错误",pathName)
@@ -73,5 +88,4 @@ func (m ManagerController) Delete(c *gin.Context) {
 		return
 	}
 	m.Success(c,"删除成功",pathName)
-
 }

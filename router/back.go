@@ -22,7 +22,7 @@ func Back(r *gin.Engine) {
 		v1.GET("/manager",back.ManagerController{}.Home)
 		v1.GET("/manager/add",back.ManagerController{}.Add)
 		v1.POST("/manager/doAdd",back.ManagerController{}.DoAdd)
-		v1.GET("/manager/delete",back.RoleController{}.Delete)
+		v1.GET("/manager/delete",back.ManagerController{}.Delete)
 
 	}
 }
