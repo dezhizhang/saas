@@ -1,6 +1,7 @@
 package back
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"saas/driver"
@@ -15,7 +16,8 @@ type ManagerController struct {
 
 func (m ManagerController) Home(c *gin.Context) {
 	var managers []models.Manager
-	driver.DB.Find(&managers)
+	driver.DB.Preload("Role").Find(&managers)
+	fmt.Printf("%#v",managers)
 	c.HTML(http.StatusOK,"back/manager/index.html",gin.H{
 		"managers":managers,
 	})
@@ -67,9 +69,12 @@ func (m ManagerController) Edit(c *gin.Context) {
 		m.Error(c,"传入参数有误",pathName)
 		return
 	}
+	var roles []models.Role
 	var manager models.Manager
-	driver.DB.Where("id?=",id).Find(&manager)
-	c.HTML(http.StatusOK,"back/manager/index.html",gin.H{
+	driver.DB.Find(&roles)
+	driver.DB.Where("id=?",id).Find(&manager)
+	c.HTML(http.StatusOK,"back/manager/edit.html",gin.H{
+		"roles":roles,
 		"manager":manager,
 	})
 }

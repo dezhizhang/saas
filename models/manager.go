@@ -11,4 +11,5 @@ type Manager struct {
 	AddTime int `json:"add_time"`
 	IsSuper int `json:"is_super"`
 	Password string `json:"password"`
+	Role Role `gorm:"foreignKey:RoleId"`
 }
