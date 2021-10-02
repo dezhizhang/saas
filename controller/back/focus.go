@@ -14,7 +14,11 @@ type FocusController struct {
 
 
 func (f FocusController) Home(c *gin.Context) {
-	c.HTML(http.StatusOK,"back/focus/index.html",nil)
+	var focus []models.Focus
+	driver.DB.Find(&focus)
+	c.HTML(http.StatusOK,"back/focus/index.html",gin.H{
+		"focus":focus,
+	})
 }
 
 func (f FocusController) Add(c *gin.Context) {
@@ -42,6 +46,8 @@ func (f FocusController) DoAdd(c *gin.Context) {
 		Link: link,
 		FocusType: focusType,
 		Img: img,
+		Status: 1,
+		Sort: 1,
 		AddTime: int(utils.GetUnix()),
 	}
 

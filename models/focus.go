@@ -8,7 +8,7 @@ type Focus struct {
 	FocusType int `json:"focus_type"`
 	Name string `json:"Name"`
 	Link string `json:"link"`
-	Status string `json:"status"`
+	Status int `json:"status"`
 	Sort int `json:"sort"`
 	AddTime int `json:"add_time"`
 }

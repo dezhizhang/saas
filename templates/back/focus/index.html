@@ -5,45 +5,23 @@
         <table class="table table-bordered">
             <thead>
             <tr class="th">
-                <th>编号</th>
-                <th>图标</th>
                 <th>名称</th>
-                <th>价格</th>
-                <th>邮费</th>
-               
+                <th>链接</th>
+                <th>类型</th>
+                <th>图片</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
-
+            {{range $key,$value := .focus}}
             <tr>
-                <td>1</td>
-                <td>图标</td>
-                <td>背包1111111</td>
-                <td>20元</td>
-                <td>10元</td>
-              
+                <td>{{$value.Name}}</td>
+                <td>{{$value.Link}}</td>
+                <td>{{$value.FocusType}}</td>
+                <td><img src="http://localhost:8080/{{$value.Img}}"/></td>
                 <td class="text-center">修改  删除</td>
             </tr>
-               <tr>
-                <td>2</td>
-                <td>图标</td>
-                <td>thinpad笔记本电脑</td>
-                <td>20元</td>
-                <td>10元</td>
-              
-                <td class="text-center">修改  删除</td>
-            </tr>
-               <tr>
-                <td>3</td>
-                <td>图标</td>
-                <td>iphone7</td>
-                <td>20元</td>
-                <td>10元</td>
-              
-                <td class="text-center">修改  删除</td>
-            </tr>
-
+            {{end}}
             </tbody>
         </table>
     </div>
