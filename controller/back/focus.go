@@ -75,3 +75,17 @@ func (f FocusController) Delete(c *gin.Context) {
 	}
 	f.Success(c,"删除轮播图成功",pathName)
 }
+
+
+func (f FocusController) Edit(c *gin.Context) {
+	id,err := utils.Int(c.Query("id"))
+	if err != nil {
+		f.Error(c,"参数错误","/admin/focus")
+		return
+	}
+	var focus models.Focus
+	driver.DB.Where("id=?",id).Find(&focus)
+	c.HTML(http.StatusOK,"back/focus/edit.html",gin.H{
+		"focus":focus,
+	})
+}

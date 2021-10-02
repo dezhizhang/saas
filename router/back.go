@@ -31,6 +31,7 @@ func Back(r *gin.Engine) {
 		v1.GET("/focus/add",back.FocusController{}.Add)
 		v1.POST("/focus/doAdd",back.FocusController{}.DoAdd)
 		v1.GET("/focus/delete",back.FocusController{}.Delete)
+		v1.GET("/focus/edit",back.FocusController{}.Edit)
 
 	}
 }
