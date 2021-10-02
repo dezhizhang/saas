@@ -58,5 +58,20 @@ func (f FocusController) DoAdd(c *gin.Context) {
 	}
 	f.Success(c,"新增轮播成功","/admin/focus")
 
+}
 
+func (f FocusController) Delete(c *gin.Context) {
+	pathName := "/admin/focus"
+	id,err :=utils.Int(c.Query("id"))
+	if err != nil{
+		f.Error(c,"参数错误",pathName)
+		return
+	}
+	var focus models.Focus
+	err = driver.DB.Where("id=?",id).Delete(&focus).Error
+	if err != nil {
+		f.Error(c,"删除轮播图失败",pathName)
+		return
+	}
+	f.Success(c,"删除轮播图成功",pathName)
 }
