@@ -26,7 +26,7 @@ func UploadFile(c *gin.Context,fileName string) (string,error) {
 	}
 	// 创建图片保存目录
 	day := GetDay()
-	dir := "./static/upload" + day
+	dir := "./static/back/upload" + day
 
 	err = os.MkdirAll(dir,0666)
 	if err != nil {

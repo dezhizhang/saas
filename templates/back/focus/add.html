@@ -12,11 +12,11 @@
             <form action="/admin/focus/doAdd" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">名称</label>
-                    <input type="text" class="form-control" id="name" name="username" placeholder="请输入名称">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="请输入名称">
                 </div>
                 <div class="form-group">
-                    <label for="ftype">名称</label>
-                    <select class="form-control" name="type" id="ftype">
+                    <label for="focus_type">名称</label>
+                    <select class="form-control" name="focus_type" id="focus_type">
                         <option value="1">网站</option>
                         <option value="2">App</option>
                         <option value="3">小程序</option>
@@ -27,8 +27,8 @@
                     <input type="text" class="form-control" id="link" name="link" placeholder="请输入链接地址">
                 </div>
                 <div class="form-group">
-                    <label for="imgs">图片</label>
-                    <input type="file" class="form-control" name="img" id="imgs">
+                    <label for="img">图片</label>
+                    <input type="file" class="form-control" name="img" id="img">
                 </div>
                 <button type="submit" class="btn btn-default">提交</button>
             </form>
