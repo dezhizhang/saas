@@ -7,6 +7,6 @@ import (
 
 func Front(r *gin.Engine) {
 
-	r.GET("/home",front.Home{}.Home)
+	r.GET("/",front.Home{}.Home)
 
 }
