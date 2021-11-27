@@ -15,5 +15,3 @@ type Home struct {
 func (h Home) Home(c *gin.Context) {
 	c.HTML(http.StatusOK, "front/home/index.html", gin.H{})
 }
-
-//c.HTML(http.StatusOK,"back/login/index.html",gin.H{})
