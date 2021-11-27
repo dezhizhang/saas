@@ -7,12 +7,12 @@ import (
 	"saas/driver"
 )
 
-
 type List struct {
 }
 
-func (h List) List(c *gin.Context) {
-	err := driver.RDB.Set(ctx,"change","hello world",0).Err()
+
+func (l List) List(c *gin.Context) {
+	err := driver.RDB.Set(ctx,"change","张德志",0).Err()
 	if err != nil {
 		log.Fatal(err)
 	}
